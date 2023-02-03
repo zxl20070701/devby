@@ -1,0 +1,24 @@
+{
+  "name": "devby",
+  "version": "0.1.0",
+  "description": "开发服务器，帮助你更快速的搭建开发测试环境",
+  "scripts": {
+    "test": "node ./bin/run"
+  },
+  "bin": {
+    "devby": "bin/run"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fragement-contrib/devby.git"
+  },
+  "keywords": [
+    "dev",
+    "server"
+  ],
+  "author": "zxl20070701",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/fragement-contrib/devby/issues"
+  }
+}
