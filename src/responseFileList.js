@@ -8,8 +8,12 @@ module.exports = function (fullUrl) {
   try {
     files = fs.readdirSync(fullUrl);
   } catch (e) {
-    content = path.resolve(fullUrl, '../');
-    files = fs.readdirSync(content);
+    try {
+      content = path.resolve(fullUrl, '../');
+      files = fs.readdirSync(content);
+    } catch (e) {
+      files = [];
+    }
   }
 
   let template = "<a href='../'>..</a>";

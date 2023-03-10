@@ -1,6 +1,6 @@
 {
   "name": "devby",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "开发服务器，帮助你更快速的搭建开发测试环境",
   "scripts": {
     "test": "node ./bin/run"
