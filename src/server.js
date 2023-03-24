@@ -5,20 +5,25 @@ const mineTypes = require('./mime.types.js');
 const { log, error } = require('./log');
 const { fullPath } = require('./path');
 const responseFileList = require('./responseFileList');
+const path = require('path');
 
-module.exports = function () {
-    var port = 20000; // 端口号
+const jsonfile = JSON.parse(fs.readFileSync(path.join(__dirname, '../package.json')));
+
+module.exports = function (port) {
+    port = port || 20000; // 端口号
     var basePath = process.cwd(); // 服务器根路径
 
     var index = 0;
     var server = http.createServer(function (request, response) {
         try {
-            log("[" + index++ + "]" + request.url);
+            var url = decodeURIComponent(request.url);
 
-            request.url = request.url.split("?")[0];
+            log("[" + index++ + "]" + url);
+
+            url = url.split("?")[0];
 
             // 请求的文件路径
-            var filePath = fullPath(request.url == "/" ? "index.html" : request.url.replace(/^\//, ""), basePath);
+            var filePath = fullPath(url == "/" ? "index.html" : url.replace(/^\//, ""), basePath);
 
             var dotName = /\./.test(filePath) ? filePath.match(/\.([^.]+)$/)[1] : "";
 
@@ -27,12 +32,14 @@ module.exports = function () {
 
             if (fs.existsSync(filePath) && !fs.lstatSync(filePath).isDirectory()) {
                 response.writeHead(200, {
-                    'content-type': (type || "text/html") + ";charset=utf-8"
+                    'Content-type': (type || "text/html") + ";charset=utf-8",
+                    'Server': "Powered by devby@" + jsonfile.version
                 });
                 response.write(fs.readFileSync(filePath));
             } else {
                 response.writeHead(404, {
-                    'content-type': "text/html;charset=utf-8"
+                    'Content-type': "text/html;charset=utf-8",
+                    'Server': "Powered by devby@" + jsonfile.version
                 });
                 response.write(responseFileList(filePath));
             }
@@ -40,7 +47,8 @@ module.exports = function () {
             error(e);
 
             response.writeHead(500, {
-                'content-type': "text/plain;charset=utf-8"
+                'Content-type': "text/plain;charset=utf-8",
+                'Server': "Powered by devby@" + jsonfile.version
             });
             response.write(e + "");
         }

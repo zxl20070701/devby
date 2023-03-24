@@ -15,6 +15,12 @@ npm install -g devby
 devby
 ```
 
+更多功能你可以打印帮助查看：
+
+```
+devby -h
+```
+
 ## 版权
 
 MIT License
