@@ -1,9 +1,10 @@
 {
   "name": "devby",
-  "version": "0.2.0",
-  "description": "开发服务器，帮助你更快速的搭建开发测试环境",
+  "version": "0.3.0-alpha.0",
+  "description": "开发辅助命令，帮助你更快速的搭建开发测试环境",
   "scripts": {
-    "test": "node ./bin/run"
+    "test1": "node ./bin/run",
+    "test2": "node ./bin/run -c ./test/devby.config.js"
   },
   "bin": {
     "devby": "bin/run"

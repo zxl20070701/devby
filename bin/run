@@ -57,7 +57,23 @@ const parsed = require("../src/options")(shortHands, process.argv);
         }
 
         log(help);
-    } else {
+    }
+
+    // 基于配置文件运行
+    else if (Array.isArray(parsed.config)) {
+        if (parsed.config.length < 1) parsed.config[0] = './devby.config.js';
+
+        // 读取配置
+        let configFile = require(path.join(process.cwd(), parsed.config[0]));
+
+        // 如果配置了服务器
+        if ("devServer" in configFile) {
+            server(configFile.devServer.port);
+        }
+    }
+
+    // 否则就是启动服务器
+    else {
 
         let port = (parsed.server && parsed.server[0]) || parsed.__terminal__[0];
         server(port);

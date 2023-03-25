@@ -1,5 +1,5 @@
 # [devby](https://github.com/fragement-contrib/devby)
-开发服务器
+开发辅助命令
 
 ## 如何使用？
 
@@ -9,7 +9,7 @@
 npm install -g devby
 ```
 
-然后，直接启动即可：
+然后，直接启动即可开启一个本地HTTP服务器：
 
 ```
 devby

@@ -3,7 +3,6 @@ const fs = require('fs');
 
 const mineTypes = require('./mime.types.js');
 const { log, error } = require('./log');
-const { fullPath } = require('./path');
 const responseFileList = require('./responseFileList');
 const path = require('path');
 
@@ -11,21 +10,21 @@ const jsonfile = JSON.parse(fs.readFileSync(path.join(__dirname, '../package.jso
 
 module.exports = function (port) {
     port = port || 20000; // 端口号
-    var basePath = process.cwd(); // 服务器根路径
+    let basePath = process.cwd(); // 服务器根路径
 
-    var index = 0;
-    var server = http.createServer(function (request, response) {
+    let index = 0;
+    let server = http.createServer(function (request, response) {
         try {
-            var url = decodeURIComponent(request.url);
+            let url = decodeURIComponent(request.url);
 
             log("[" + index++ + "]" + url);
 
             url = url.split("?")[0];
 
             // 请求的文件路径
-            var filePath = fullPath(url == "/" ? "index.html" : url.replace(/^\//, ""), basePath);
+            let filePath = path.join(basePath, url == "/" ? "index.html" : url.replace(/^\//, ""));
 
-            var dotName = /\./.test(filePath) ? filePath.match(/\.([^.]+)$/)[1] : "";
+            let dotName = /\./.test(filePath) ? filePath.match(/\.([^.]+)$/)[1] : "";
 
             // 文件类型
             type = mineTypes[dotName];

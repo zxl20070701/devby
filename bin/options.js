@@ -16,6 +16,11 @@ module.exports = {
       short: 's',
       info: '[2]render source server.',
       demo: 'devby --server|-s [port|20000]'
+    },
+    config: {
+      short: 'c',
+      info: '[3]Specify a configuration file.',
+      demo: 'devby --config|c ./devby.config.js'
     }
   },
 
@@ -24,7 +29,7 @@ module.exports = {
   Usage: devby <command>
   
   where <command> is one of:
-    --help, -h, --server, -s, --version, -v
+    --help, -h, --server, -s, --version, -v, --config, -c
   
   devby --help|-h <term>       search for help on <term>
   devby --help|-h              involved overview
