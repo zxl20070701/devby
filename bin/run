@@ -5,11 +5,11 @@
 process.title = 'devby';
 
 const server = require('../src/server');
-const options = require('./options').config;
-const help = require('./options').help;
+const { options, help } = require('./options');
 const fs = require('fs');
 const path = require('path');
 const { log } = require('../src/log');
+const { deleteSync } = require("../src/file");
 
 const jsonfile = JSON.parse(fs.readFileSync(path.join(__dirname, '../package.json')));
 
@@ -68,7 +68,40 @@ const parsed = require("../src/options")(shortHands, process.argv);
 
         // 如果配置了服务器
         if ("devServer" in configFile) {
-            server(configFile.devServer.port);
+
+            let proxy = [];
+            if (configFile.devServer.proxy) {
+                for (let item of configFile.devServer.proxy) {
+                    let target = /(https*):\/\/([^/:]+):*(\d+)*(.*)/.exec(item.target) || [];
+                    proxy.push({
+                        test: item.test,
+                        target: {
+                            protocol: target[1], // 使用的协议
+                            hostname: target[2], // 请求发送至的服务器的域名或 IP 地址
+                            port: target[3] || 80, // 端口号
+                            path: target[4] || "", // 路径前缀
+                        }
+                    });
+                }
+            }
+
+            server({
+                port: configFile.devServer.port,
+                proxy
+            });
+        }
+    }
+
+    // 删除
+    else if (Array.isArray(parsed.delete)) {
+
+        // 获取绝对路径
+        let targetPath = path.join(process.cwd(), parsed.delete[0]);
+
+        // 如果存在
+        if (fs.existsSync(targetPath)) {
+            deleteSync(targetPath);
+            log(`> delete ${targetPath}`);
         }
     }
 
@@ -76,6 +109,8 @@ const parsed = require("../src/options")(shortHands, process.argv);
     else {
 
         let port = (parsed.server && parsed.server[0]) || parsed.__terminal__[0];
-        server(port);
+        server({
+            port
+        });
     }
 })();

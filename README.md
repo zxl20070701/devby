@@ -21,6 +21,20 @@ devby
 devby -h
 ```
 
+特别说明，如果你基于配置文件``` devby.config.js ```使用，配置文件格式如下：
+
+```js
+module.exports = {
+    devServer: { // 服务器
+        port: 8080, // 端口号
+        proxy: [{ // 配置转发，可以任意多个
+            test: /^\/example/, // 匹配规则
+            target: "http://www.example.com" // 转发地址
+        }]
+    }
+};
+```
+
 ## 版权
 
 MIT License

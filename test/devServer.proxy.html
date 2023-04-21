@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>测试 | devServer.proxy</title>
+</head>
+
+<body>
+
+    <script>
+
+        var xmlhttp = new XMLHttpRequest();
+
+        xmlhttp.onload = function () {
+            if (xmlhttp.readyState == 4) {
+                console.log(xmlhttp.responseText);
+            }
+        };
+
+        xmlhttp.open("POST", "/example/index.html", true);
+
+        xmlhttp.send(JSON.stringify({
+            'key1': 'value2',
+            'key2': 'value2'
+        }));
+
+        // xmlhttp.send();
+
+        // var fd = new FormData();
+        // fd.append('key1', 'value1');
+        // fd.append('key2', 'value2');
+        // xmlhttp.send(fd);
+
+    </script>
+
+</body>
+
+</html>

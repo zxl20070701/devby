@@ -1,10 +1,12 @@
 {
   "name": "devby",
-  "version": "0.3.0-alpha.0",
+  "version": "0.3.0",
   "description": "开发辅助命令，帮助你更快速的搭建开发测试环境",
+  "sideEffects": false,
   "scripts": {
     "test1": "node ./bin/run",
-    "test2": "node ./bin/run -c ./test/devby.config.js"
+    "test2": "node ./bin/run -c ./test/devby.config.js",
+    "test3": "echo 'chrome://inspect/#devices' && node --inspect-brk ./bin/run -c ./test/devby.config.js"
   },
   "bin": {
     "devby": "bin/run"
