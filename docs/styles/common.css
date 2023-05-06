@@ -1,0 +1,229 @@
+/* 滚动条 */
+::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+    background-color: #F5F5F5;
+}
+
+::-webkit-scrollbar-thumb {
+    -webkit-box-shadow: inset 0 0 2.5px rgb(0 0 0 / 30%);
+    box-shadow: inset 0 0 2.5px rgb(0 0 0 / 30%);
+    border-radius: 2.5px;
+    background-color: #bfc0c1;
+    opacity: .7;
+    transition: opacity ease-in-out 200ms;
+}
+
+::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 2.5px rgb(0 0 0 / 30%);
+    box-shadow: inset 0 0 2.5px rgb(0 0 0 / 30%);
+    border-radius: 2.5px;
+    background-color: #F5F5F5;
+}
+
+body {
+    display: flex;
+}
+
+body>div {
+    height: 100vh;
+    overflow: auto;
+}
+
+body>div.fixed {
+    flex-shrink: 0;
+    flex-basis: 240px;
+}
+
+body>div.content {
+    flex-grow: 1;
+}
+
+body>a.fork {
+    user-select: none;
+    position: fixed;
+    transform: rotate(45deg);
+    line-height: 1.6em;
+    transform-origin: 150px 23px;
+    text-align: center;
+    font-family: sans-serif;
+    display: inline-block;
+    bottom: 67px;
+    left: -58px;
+    width: 300px;
+    background-color: #f4f4f4;
+    outline: 4px solid #f4f4f4;
+    border: 2px dashed #E91E63;
+    color: #808080;
+}
+
+/* 文档 */
+.content {
+    padding: 10px 30px;
+    position: relative;
+}
+
+.content>header {
+    font-size: 28px;
+    padding: 20px 0;
+    font-weight: 800;
+}
+
+.content>h2 {
+    font-size: 20px;
+    line-height: 2em;
+    padding: 20px 0;
+}
+
+.content>h3 {
+    font-size: 16px;
+    line-height: 2em;
+    padding: 15px 0;
+}
+
+.content>h4 {
+    font-size: 12px;
+    padding: 15px 0 5px 0;
+    position: relative;
+    margin-left: 10px;
+}
+
+.content>h4::before {
+    content: "#";
+    color: #4051b6;
+    position: absolute;
+    left: -0.7em;
+    margin-top: -0.05em;
+    padding-right: 0.5em;
+    font-size: 1.2em;
+    line-height: 1;
+    font-weight: bold;
+}
+
+.content>p {
+    text-indent: 2em;
+}
+
+.content>p,
+.content>div {
+    line-height: 1.6em;
+    color: #3c3939;
+    font-weight: 400;
+    font-size: 14px;
+    margin: 10px 0;
+    white-space: normal;
+}
+
+.content a {
+    font-size: 12px;
+    color: #0286b6;
+    text-decoration: underline;
+    margin: 0 5px;
+}
+
+.content ul,
+.content ol {
+    font-size: 13px;
+    line-height: 2.4em;
+    margin-left: 2.5em;
+}
+
+.content ol>li {
+    list-style-type: decimal;
+}
+
+.content ul>li {
+    list-style-type: disc;
+}
+
+.content .warn {
+    border-left-color: #f66;
+    padding: 12px 24px 12px 30px;
+    margin: 2em 0;
+    border-left-width: 4px;
+    border-left-style: solid;
+    background-color: #f8f8f8;
+    position: relative;
+    border-bottom-right-radius: 2px;
+    border-top-right-radius: 2px;
+}
+
+.content .warn::before {
+    content: "!";
+    background-color: #f66;
+    position: absolute;
+    top: 14px;
+    left: -12px;
+    color: #fff;
+    width: 20px;
+    height: 20px;
+    border-radius: 100%;
+    text-align: center;
+    line-height: 20px;
+    font-weight: bold;
+    font-family: "Dosis", "Source Sans Pro", "Helvetica Neue", Arial, sans-serif;
+    font-size: 14px;
+}
+
+.content .important {
+    color: rgb(255, 0, 0);
+    font-weight: 800;
+    padding: 0 3px;
+}
+
+.content .special {
+    font-weight: 800;
+    text-decoration: underline;
+    margin: 0 5px;
+}
+
+
+pre {
+    position: relative;
+    outline: 1px solid #d3d3d4;
+    overflow: auto;
+    padding: 10px;
+    color: #3F51B5;
+}
+
+pre:hover {
+    outline-color: black;
+}
+
+/* 导航 */
+.fixed {
+    padding: 10px;
+}
+
+.fixed>h1 {
+    padding: 10px 0;
+    font-size: 16px;
+    border-bottom: 1px solid rgb(205, 203, 203);
+}
+
+.fixed>h2,
+.fixed>h3,
+.fixed>h4 {
+    font-size: 12px;
+    cursor: pointer;
+    margin-top: 10px;
+    font-weight: 400;
+}
+
+.fixed>h2:hover,
+.fixed>h3:hover,
+.fixed>h4:hover {
+    text-decoration: underline;
+}
+
+.fixed>h2 {
+    padding-left: 1em;
+}
+
+.fixed>h3 {
+    padding-left: 2em;
+}
+
+.fixed>h4 {
+    padding-left: 3em;
+}

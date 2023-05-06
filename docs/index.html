@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>devby 开发辅助</title>
+    <link rel="stylesheet" href="./styles/normalize.css">
+    <link rel="stylesheet" href="./styles/common.css">
+    <script src="https://unpkg.com/vislite/lib/animation/index.umd.js"></script>
+    <script defer="defer" src="./bootstrap.js"></script>
+</head>
+
+<body>
+    <a href="https://github.com/fragement-contrib/devby" target="_blank" class="fork">Fork Me on Github</a>
+    <div class="fixed" id="fixed"></div>
+    <div class="content" id="content">
+        <header>
+            devby 开发辅助
+        </header>
+        <h2>
+            简介
+        </h2>
+        <p>
+            本项目用于提供前端开发常用功能，包括快速搭建开发调试服务器和一些常用的nodejs模块。
+        </p>
+        <h3>
+            使用方式
+        </h3>
+        <p>
+            你可以作为一个命令行使用，那么你需要全局安装：
+        </p>
+        <pre>
+            npm install -g devby
+        </pre>
+        <p>
+            也可以作为项目开发中的一个功能加强，在
+            <span class="special">package.json</span>
+            中配置命令或nodejs文件中引入需要的模块使用，那么就在项目中执行安装命令：
+        </p>
+        <pre>
+            npm install devby --save
+        </pre>
+        <h2>
+            命令行
+        </h2>
+        <p>
+            全局安装后，就可以直接作为命令行使用了。你可以打印帮助查看：
+        </p>
+        <pre>
+            devby -h
+        </pre>
+        <p>
+            比如会出现下列内容：
+        </p>
+        <pre>
+Usage: devby &lt;command&gt;
+
+    where &lt;command&gt; is one of:
+        --help, -h, --server, -s, --version, -v, --config, --delete, -d
+    
+    devby --help|-h &lt;term&gt;       search for help on &lt;term&gt;
+    devby --help|-h              involved overview
+        </pre>
+        <p>
+            比如--server或-s命令如何查看具体使用说明？只需要：
+        </p>
+        <pre>
+            devby -h s
+        </pre>
+        <p>
+            然后看见打印提示：
+        </p>
+        <pre>
+            devby --server|-s [port|20000]         [2]render source server.
+        </pre>
+        <p>
+            根据提示我们知道，这是一个快速启动一个本地资源服务器的命令，使用的时候可以设置服务器端口号，端口号缺省是20000。
+        </p>
+        <p>
+            比如我们启动端口为8080的服务器：
+        </p>
+        <pre>
+            devby -s 8080
+        </pre>
+        <h3>
+            配置文件
+        </h3>
+        <p>
+            对于更复杂的业务，我们推荐使用配置文件的方式。比如我们准备了配置文件
+            <span class="specail">
+                devby.config.js
+            </span>
+            ，那么就可以：
+        </p>
+        <pre>
+            devby -c ./devby.config.js
+        </pre>
+        <p>
+            配置文件的内容如下：
+        </p>
+        <pre>
+module.exports = {
+    devServer: { // 服务器
+        port: 8080, // 端口号
+        proxy: [{ // 配置转发，可以任意多个
+            test: /^\/example/, // 匹配规则
+            target: "http://www.example.com" // 转发地址
+        }]
+    }
+};
+        </pre>
+        <h2>
+            项目依赖
+        </h2>
+        <p>
+            当然，这种方式我们还是可以在项目的
+            <span class="special">package.json</span>
+            中通过命令进行使用，比如：
+        </p>
+        <pre>
+{
+    "scripts": {
+        "dev": "devby -s 8080"
+    }
+}   
+        </pre>
+        <p>
+            不过，我们这里主要是描述可用模块有哪些。
+        </p>
+        <h3>
+            文件操作
+        </h3>
+        <h4>
+            删除
+        </h4>
+        <p>
+            删除文件或文件夹：
+        </p>
+        <pre>
+const { deleteSync } = require("devby");
+
+deleteSync(path);
+        </pre>
+        <h3>
+            打印
+        </h3>
+        <h4>
+            普通打印
+        </h4>
+        <pre>
+const { log, warn, error } = require('devby');
+        </pre>
+    </div>
+</body>
+
+</html>

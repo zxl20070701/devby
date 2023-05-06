@@ -20,10 +20,9 @@ module.exports = {
     config: {
       short: 'c',
       info: '[3]Specify a configuration file.',
-      demo: 'devby --config|c ./devby.config.js'
+      demo: 'devby --config|-c ./devby.config.js'
     },
     delete: {
-      short: 'd',
       info: '[4]delete file or folder.',
       demo: 'devby --delete ./file'
     }
@@ -34,7 +33,7 @@ module.exports = {
   Usage: devby <command>
   
   where <command> is one of:
-    --help, -h, --server, -s, --version, -v, --config, --delete, -d
+    --help, -h, --server, -s, --version, -v, --config, -c, --delete
   
   devby --help|-h <term>       search for help on <term>
   devby --help|-h              involved overview

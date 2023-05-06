@@ -1,5 +1,5 @@
 # [devby](https://github.com/fragement-contrib/devby)
-开发辅助命令
+开发辅助
 
 ## 如何使用？
 
@@ -34,6 +34,8 @@ module.exports = {
     }
 };
 ```
+
+更多细节你可以[点击此处](https://fragement-contrib.github.io/devby)查看文档！
 
 ## 版权
 
