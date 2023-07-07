@@ -141,7 +141,29 @@ module.exports = {
         <pre>
 const { deleteSync } = require("devby");
 
-deleteSync(path);
+deleteSync(target);
+        </pre>
+        <h4>
+            复制
+        </h4>
+        <p>
+            复制文件或文件夹：
+        </p>
+        <pre>
+const { copySync } = require("devby");
+
+copySync(source, target);
+        </pre>
+        <h4>
+            移动
+        </h4>
+        <p>
+            移动文件或文件夹：
+        </p>
+        <pre>
+const { moveSync } = require("devby");
+
+moveSync(source, target);
         </pre>
         <h3>
             打印

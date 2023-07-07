@@ -9,7 +9,7 @@ const { options, help } = require('./options');
 const fs = require('fs');
 const path = require('path');
 const { log } = require('../src/log');
-const { deleteSync } = require("../src/file");
+const { deleteSync, copySync, moveSync } = require("../src/file");
 
 const jsonfile = JSON.parse(fs.readFileSync(path.join(__dirname, '../package.json')));
 
@@ -98,11 +98,32 @@ const parsed = require("../src/options")(shortHands, process.argv);
         // 获取绝对路径
         let targetPath = path.join(process.cwd(), parsed.delete[0]);
 
+        deleteSync(targetPath);
+        log(`> delete ${targetPath}`);
+    }
+
+    // 复制
+    else if (Array.isArray(parsed.copy)) {
+
+        // 获取绝对路径
+        let sourcePath = path.join(process.cwd(), parsed.copy[0]);
+        let targetPath = path.join(process.cwd(), parsed.copy[1]);
+
         // 如果存在
-        if (fs.existsSync(targetPath)) {
-            deleteSync(targetPath);
-            log(`> delete ${targetPath}`);
-        }
+        copySync(sourcePath, targetPath);
+        log(`> copy ${sourcePath} ➔ ${targetPath}`);
+    }
+
+    // 移动
+    else if (Array.isArray(parsed.move)) {
+
+        // 获取绝对路径
+        let sourcePath = path.join(process.cwd(), parsed.move[0]);
+        let targetPath = path.join(process.cwd(), parsed.move[1]);
+
+        // 如果存在
+        moveSync(sourcePath, targetPath);
+        log(`> move ${sourcePath} ➔ ${targetPath}`);
     }
 
     // 否则就是启动服务器

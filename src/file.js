@@ -4,6 +4,9 @@ const path = require('path');
 // 删除文件或文件夹
 function deleteSync(target) {
 
+  // 如果文件夹不存在，直接返回即可
+  if (!fs.existsSync(target)) return;
+
   // 如果是文件，直接删除即可
   if (!fs.lstatSync(target).isDirectory()) {
     fs.unlinkSync(target);
@@ -26,5 +29,58 @@ function deleteSync(target) {
 
 };
 
+// 复制文件或文件夹
+function copySync(source, target) {
+
+  // 如果是文件，直接复制即可
+  if (!fs.lstatSync(source).isDirectory()) {
+    fs.copyFileSync(source, target);
+  } else {
+
+    // 读取子文件
+    const subFiles = fs.readdirSync(source);
+
+    // 如果文件夹不存在，创建
+    if (!fs.existsSync(target)) {
+      fs.mkdirSync(target);
+    }
+
+    // 复制子文件或文件夹
+    subFiles.forEach(function (file) {
+      copySync(path.join(source, "./" + file), path.join(target, "./" + file));
+    });
+
+  }
+};
+
+// 移动文件或文件夹
+function moveSync(source, target) {
+
+  // 如果是文件，直接剪切即可
+  if (!fs.lstatSync(source).isDirectory()) {
+    fs.copyFileSync(source, target);
+    fs.unlinkSync(source);
+  } else {
+
+    // 读取子文件
+    const subFiles = fs.readdirSync(source);
+
+    // 如果文件夹不存在，创建
+    if (!fs.existsSync(target)) {
+      fs.mkdirSync(target);
+    }
+
+    // 移动子文件或文件夹
+    subFiles.forEach(function (file) {
+      moveSync(path.join(source, "./" + file), path.join(target, "./" + file));
+    });
+
+    // 移动完子文件或文件夹以后（移动完毕也意味着子文件或文件夹被删除了）
+    fs.rmdirSync(source);
+  }
+}
+
 // 导出
 exports.deleteSync = deleteSync;
+exports.copySync = copySync;
+exports.moveSync = moveSync;

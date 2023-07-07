@@ -24,7 +24,15 @@ module.exports = {
     },
     delete: {
       info: '[4]delete file or folder.',
-      demo: 'devby --delete ./file'
+      demo: 'devby --delete targetPath'
+    },
+    copy: {
+      info: '[5]copy file or folder.',
+      demo: 'devby --copy sourcePath targetPath'
+    },
+    move: {
+      info: '[6]move file or folder.',
+      demo: 'devby --move sourcePath targetPath'
     }
   },
 
@@ -33,7 +41,7 @@ module.exports = {
   Usage: devby <command>
   
   where <command> is one of:
-    --help, -h, --server, -s, --version, -v, --config, -c, --delete
+    --help, -h, --server, -s, --version, -v, --config, -c, --delete, --copy, --move
   
   devby --help|-h <term>       search for help on <term>
   devby --help|-h              involved overview
