@@ -39,9 +39,18 @@ v0.4.0:
     changes:
       - 修复bug
         1、提示help错误问题
-v0.4.1:
-    date:2023-07-08
+v0.4.2:
+    date:2023-07-10
     changes:
       - 新增一些功能
         1、copySync 复制文件或文件夹
         2、moveSync 移动文件或文件夹
+v0.4.3:
+    date:2023-07-12
+    changes:
+      - 优化代码
+        1、添加d.ts文件以支持更多开发环境
+      - 新增一些功能
+        1、linelog 单行打印
+        2、process 进度打印
+        3、options 命令行参数解析

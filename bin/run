@@ -18,7 +18,7 @@ let shortHands = {};
 for (let key in options) {
     if (options[key].short) shortHands["-" + options[key].short] = "--" + key;
 }
-
+console.log(shortHands)
 // 命令行传递的参数
 const parsed = require("../src/options")(shortHands, process.argv);
 

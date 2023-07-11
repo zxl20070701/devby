@@ -1,9 +1,10 @@
 {
   "name": "devby",
-  "version": "0.4.1",
+  "version": "0.4.3",
   "description": "开发辅助，帮助你更快速的搭建开发测试环境",
   "sideEffects": false,
   "main": "index.js",
+  "typings": "./types/index.d.ts",
   "scripts": {
     "bin": "node ./bin/run",
     "config": "node ./bin/run -c ./test/devby.config.js",
@@ -28,5 +29,8 @@
   "bugs": {
     "url": "https://github.com/fragement-contrib/devby/issues"
   },
-  "homepage": "https://fragement-contrib.github.io/devby"
+  "homepage": "https://fragement-contrib.github.io/devby",
+  "devDependencies": {
+    "vislite": "^0.3.1"
+  }
 }

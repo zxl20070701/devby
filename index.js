@@ -1,12 +1,20 @@
-const { deleteSync, copySync } = require('./src/file');
-const { log, warn, error } = require('./src/log');
+const { deleteSync, copySync, moveSync } = require('./src/file');
+const { log, warn, error, linelog } = require('./src/log');
+const process = require('./src/process');
+const options = require('./src/options');
 
 module.exports = {
 
+    // 命令行相关
+    options,
+
     // 文件操作相关
-    deleteSync, copySync,
+    deleteSync, copySync, moveSync,
 
     // 日志打印
-    log, warn, error
+    log, warn, error, linelog,
+
+    // 进度打印
+    process
 
 };

@@ -130,6 +130,31 @@ module.exports = {
             不过，我们这里主要是描述可用模块有哪些。
         </p>
         <h3>
+            命令行
+        </h3>
+        <h4>
+            参数解析
+        </h4>
+        <pre>
+const { options } = require("devby");
+
+const parsed = options(shortHands, argv);   
+        </pre>
+        <p>
+            例如：
+        </p>
+        <pre>
+const parsed = options({
+    '-v': '--version',
+    '-h': '--help',
+    '-s': '--server',
+    '-c': '--config'
+    }, process.argv); 
+        </pre>
+        <p>
+            返回的值parsed是一个简单可读的包含命令行所有信息的JSON，具体的你可以打印一下试试。
+        </p>
+        <h3>
             文件操作
         </h3>
         <h4>
@@ -172,7 +197,23 @@ moveSync(source, target);
             普通打印
         </h4>
         <pre>
-const { log, warn, error } = require('devby');
+const { log, warn, error, linelog } = require('devby');
+        </pre>
+        <h4>
+            单行打印
+        </h4>
+        <pre>
+const { linelog } = require("devby");
+
+linelog(txt);
+        </pre>
+        <h4>
+            进度打印
+        </h4>
+        <pre>
+const { process } = require("devby");
+
+process(percentum, txt);  
         </pre>
     </div>
 </body>
