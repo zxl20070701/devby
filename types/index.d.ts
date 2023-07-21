@@ -1,3 +1,5 @@
+import getOptionsType from './get-options'
+
 export default class DevBy {
 
     // 命令行参数解析
@@ -16,5 +18,8 @@ export default class DevBy {
 
     // 进度打印
     static process: (percentum: number, txt?: string) => void
+
+    // 请求
+    static get(url: string, options?: getOptionsType): Promise<any>
 
 }

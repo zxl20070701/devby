@@ -1,6 +1,18 @@
 # [devby](https://github.com/fragement-contrib/devby)
 开发辅助
 
+<p>
+    <a href="https://www.npmjs.com/package/devby?activeTab=versions">
+        <img src="https://img.shields.io/npm/dm/devby.svg" alt="downloads">
+    </a>
+    <a href="https://www.npmjs.com/package/devby">
+        <img src="https://img.shields.io/npm/v/devby.svg" alt="Version">
+    </a>
+    <a href="https://github.com/fragement-contrib/devby" target='_blank'>
+        <img alt="GitHub repo stars" src="https://img.shields.io/github/stars/fragement-contrib/devby?style=social">
+    </a>
+</p>
+
 ## 如何使用？
 
 本项目用于提供更便捷的开发体验，功能会根据实际情况逐步调整。

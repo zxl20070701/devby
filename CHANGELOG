@@ -54,3 +54,8 @@ v0.4.3:
         1、linelog 单行打印
         2、process 进度打印
         3、options 命令行参数解析
+v0.4.4:
+    date:2023-07-22
+    changes:
+      - 新增一些功能
+        1、get GET请求

@@ -2,6 +2,7 @@ const { deleteSync, copySync, moveSync } = require('./src/file');
 const { log, warn, error, linelog } = require('./src/log');
 const process = require('./src/process');
 const options = require('./src/options');
+const { get } = require('./src/remote')
 
 module.exports = {
 
@@ -15,6 +16,9 @@ module.exports = {
     log, warn, error, linelog,
 
     // 进度打印
-    process
+    process,
+
+    // 请求
+    get
 
 };
