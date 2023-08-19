@@ -21,5 +21,8 @@ export default class DevBy {
 
     // 请求
     static get(url: string, options?: getOptionsType): Promise<any>
+    static post(url: string, options?: getOptionsType): Promise<any>
 
+    // 获取本机网络信息
+    static network(): any
 }

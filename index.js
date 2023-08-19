@@ -2,7 +2,8 @@ const { deleteSync, copySync, moveSync } = require('./src/file');
 const { log, warn, error, linelog } = require('./src/log');
 const process = require('./src/process');
 const options = require('./src/options');
-const { get } = require('./src/remote')
+const { get, post } = require('./src/remote');
+const network = require('./src/network');
 
 module.exports = {
 
@@ -19,6 +20,9 @@ module.exports = {
     process,
 
     // 请求
-    get
+    get, post,
+
+    // 查看网络信息
+    network
 
 };

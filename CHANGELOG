@@ -59,3 +59,14 @@ v0.4.4:
     changes:
       - 新增一些功能
         1、get GET请求
+v0.4.6:
+    date:2023-07-28
+    changes:
+      - 新增一些功能
+        1、network 获取本机网络信息
+v0.5.0:
+    date:2023-08-19
+    changes:
+      - 新增一些功能
+        1、get 命令行GET请求
+        2、post 命令行和模块POST请求

@@ -6,12 +6,13 @@ process.title = 'devby';
 
 const server = require('../src/server');
 const { options, help } = require('./options');
-const fs = require('fs');
 const path = require('path');
-const { log } = require('../src/log');
+const { log, error } = require('../src/log');
 const { deleteSync, copySync, moveSync } = require("../src/file");
+const network = require("../src/network");
+const { get, post } = require("../src/remote");
 
-const jsonfile = JSON.parse(fs.readFileSync(path.join(__dirname, '../package.json')));
+const jsonfile = require("../package.json");
 
 // 组装好缩写和全写的映射
 let shortHands = {};
@@ -124,6 +125,29 @@ const parsed = require("../src/options")(shortHands, process.argv);
         // 如果存在
         moveSync(sourcePath, targetPath);
         log(`> move ${sourcePath} ➔ ${targetPath}`);
+    }
+
+    // 网络信息
+    else if (Array.isArray(parsed.network)) {
+        log(JSON.stringify(network(), null, 4));
+    }
+
+    // GET请求
+    else if (Array.isArray(parsed.get)) {
+        get(parsed.get[0]).then(data => {
+            log(data);
+        }).catch(e => {
+            error(e);
+        });
+    }
+
+    // PSOT请求
+    else if (Array.isArray(parsed.post)) {
+        post(parsed.post[0]).then(data => {
+            log(data);
+        }).catch(e => {
+            error(e);
+        });
     }
 
     // 否则就是启动服务器

@@ -10,9 +10,23 @@
     <link rel="stylesheet" href="./styles/common.css">
     <script src="https://unpkg.com/vislite/lib/animation/index.umd.js"></script>
     <script defer="defer" src="./bootstrap.js"></script>
+    <script>
+
+        function updateView() {
+            // 计算缩放比
+            var scale = window.innerWidth / 1400;
+
+            // 进行缩放
+            document.body.style.transformOrigin = 'left top';
+            document.body.style.transform = 'scale(' + scale + ', ' + scale + ')';
+
+            document.body.style.height = (100 / scale) + "vh";
+            document.body.style.width = (100 / scale) + "vw";
+        }
+    </script>
 </head>
 
-<body>
+<body onload="updateView();" onresize="updateView();">
     <a href="https://github.com/fragement-contrib/devby" target="_blank" class="fork">Fork Me on Github</a>
     <div class="fixed" id="fixed"></div>
     <div class="content" id="content">
@@ -58,7 +72,7 @@
 Usage: devby &lt;command&gt;
 
     where &lt;command&gt; is one of:
-        --help, -h, --server, -s, --version, -v, --config, -c, --delete
+        --help, -h, --server, -s, --version, -v, --config, -c, --delete, --copy, --move, --network, --get, --post
     
     devby --help|-h &lt;term&gt;       search for help on &lt;term&gt;
     devby --help|-h              involved overview
@@ -135,6 +149,9 @@ module.exports = {
         <h4>
             参数解析
         </h4>
+        <div class="version">
+            0.4.3 新增
+        </div>
         <pre>
 const { options } = require("devby");
 
@@ -160,6 +177,9 @@ const parsed = options({
         <h4>
             删除
         </h4>
+        <div class="version">
+            0.3.0 新增
+        </div>
         <p>
             删除文件或文件夹：
         </p>
@@ -171,6 +191,9 @@ deleteSync(target);
         <h4>
             复制
         </h4>
+        <div class="version">
+            0.4.2 新增
+        </div>
         <p>
             复制文件或文件夹：
         </p>
@@ -182,6 +205,9 @@ copySync(source, target);
         <h4>
             移动
         </h4>
+        <div class="version">
+            0.4.2 新增
+        </div>
         <p>
             移动文件或文件夹：
         </p>
@@ -202,6 +228,9 @@ const { log, warn, error, linelog } = require('devby');
         <h4>
             单行打印
         </h4>
+        <div class="version">
+            0.4.3 新增
+        </div>
         <pre>
 const { linelog } = require("devby");
 
@@ -210,6 +239,9 @@ linelog(txt);
         <h4>
             进度打印
         </h4>
+        <div class="version">
+            0.4.3 新增
+        </div>
         <pre>
 const { process } = require("devby");
 
@@ -221,6 +253,9 @@ process(percentum, txt);
         <h4>
             GET
         </h4>
+        <div class="version">
+            0.4.4 新增
+        </div>
         <pre>
 const { get } = require("devby");
 
@@ -229,6 +264,32 @@ get(url, {
 }).then(data => {
     // todo
 });
+        </pre>
+        <h4>
+            POST
+        </h4>
+        <div class="version">
+            0.5.0 新增
+        </div>
+        <pre>
+const { post } = require("devby");
+
+post(url, {
+    json?: boolean
+}).then(data => {
+    // todo
+});
+        </pre>
+        <h3>
+            网络信息
+        </h3>
+        <div class="version">
+            0.4.6 新增
+        </div>
+        <pre>
+const { network } = require("devby");
+
+console.log(network()); 
         </pre>
     </div>
 </body>

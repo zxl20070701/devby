@@ -2,7 +2,7 @@
 开发辅助
 
 <p>
-    <a href="https://www.npmjs.com/package/devby?activeTab=versions">
+    <a href="https://zxl20070701.github.io/toolbox/#/npm-download?packages=devby&interval=7">
         <img src="https://img.shields.io/npm/dm/devby.svg" alt="downloads">
     </a>
     <a href="https://www.npmjs.com/package/devby">
@@ -47,7 +47,7 @@ module.exports = {
 };
 ```
 
-更多细节你可以[点击此处](https://fragement-contrib.github.io/devby)查看文档！
+除了node.js环境，我们还支持浏览器、uni-app、小程序开发环境等，更多细节你可以[点击此处](https://fragement-contrib.github.io/devby)查看文档！
 
 ## 版权
 
