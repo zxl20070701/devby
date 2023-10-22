@@ -25,4 +25,7 @@ export default class DevBy {
 
     // 获取本机网络信息
     static network(): any
+
+    // 文件类型
+    static mimeTypes(): { [name: string]: string }
 }

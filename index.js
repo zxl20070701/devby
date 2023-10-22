@@ -4,6 +4,7 @@ const process = require('./src/process');
 const options = require('./src/options');
 const { get, post } = require('./src/remote');
 const network = require('./src/network');
+const mimeTypes = require('./src/mime.types');
 
 module.exports = {
 
@@ -23,6 +24,8 @@ module.exports = {
     get, post,
 
     // 查看网络信息
-    network
+    network,
 
+    // 文件类型
+    mimeTypes
 };
