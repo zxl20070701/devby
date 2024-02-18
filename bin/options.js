@@ -30,21 +30,29 @@ module.exports = {
       info: '[5]Copy file or folder.',
       demo: 'devby --copy sourcePath targetPath'
     },
+    copyfiles:{
+      info:'[6]Copy all files in the folder to the specified location.',
+      demo:'devby --copyfiles sourcePath targetPath'
+    },
     move: {
-      info: '[6]Move file or folder.',
+      info: '[7]Move file or folder.',
       demo: 'devby --move sourcePath targetPath'
     },
     network: {
-      info: '[7]Display network information.',
+      info: '[8]Display network information.',
       demo: 'devby --network'
     },
     get: {
-      info: '[8]HTTP GET.',
+      info: '[9]HTTP GET.',
       demo: 'devby --get url'
     },
     post: {
-      info: '[9]HTTP POST.',
+      info: '[10]HTTP POST.',
       demo: 'devby --post url'
+    },
+    cat: {
+      info: '[11]Show file.',
+      demo: 'devby --cat path'
     }
   },
 
@@ -53,7 +61,7 @@ module.exports = {
   Usage: devby <command>
   
   Where <command> is one of:
-    --help, -h, --server, -s, --version, -v, --config, -c, --delete, --copy, --move, --network, --get, --post
+    --help, -h, --server, -s, --version, -v, --config, -c, --delete, --copy, --copyfiles, --move, --network, --get, --post, --cat
   
   devby --help|-h <term>       search for help on <term>
   devby --help|-h              involved overview

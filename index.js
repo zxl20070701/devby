@@ -1,10 +1,11 @@
-const { deleteSync, copySync, moveSync } = require('./src/file');
+const { deleteSync, copySync, moveSync, listFileSync, fullPathSync } = require('./src/file');
 const { log, warn, error, linelog } = require('./src/log');
 const process = require('./src/process');
 const options = require('./src/options');
 const { get, post } = require('./src/remote');
 const network = require('./src/network');
 const mimeTypes = require('./src/mime.types');
+const server = require('./src/server');
 
 module.exports = {
 
@@ -12,7 +13,7 @@ module.exports = {
     options,
 
     // 文件操作相关
-    deleteSync, copySync, moveSync,
+    deleteSync, copySync, moveSync, listFileSync, fullPathSync,
 
     // 日志打印
     log, warn, error, linelog,
@@ -27,5 +28,8 @@ module.exports = {
     network,
 
     // 文件类型
-    mimeTypes
+    mimeTypes,
+
+    // 服务器
+    server
 };

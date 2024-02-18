@@ -1,7 +1,7 @@
 {
   "name": "devby",
-  "version": "0.5.1",
-  "description": "开发辅助",
+  "version": "0.6.0",
+  "description": "前端开发快速工具，包含快速搭建开发调试服务器和一些常用的nodejs模块",
   "sideEffects": false,
   "main": "index.js",
   "scripts": {
@@ -28,7 +28,7 @@
   "bugs": {
     "url": "https://github.com/fragement-contrib/devby/issues"
   },
-  "homepage": "https://fragement-contrib.github.io/devby",
+  "homepage": "https://github.com/fragement-contrib/devby",
   "devDependencies": {
     "vislite": "^0.4.1"
   }

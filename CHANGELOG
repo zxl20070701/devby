@@ -2,20 +2,14 @@ v0.1.0:
     date:2023-01-28
     changes:
       - 初始化版本
-        (一个单一无特殊功能的http服务器)
-v0.1.1:
-    date:2023-03-06
-    changes:
-      - 优化代码
-        1、地址不存在兼容处理
-v0.1.2:
-    date:2023-03-14
-    changes:
-      - 修复bug
-        1、encodeURIComponent()编码导致的解析错误
+        (一个单一无特殊功能的http服务器)    
 v0.2.0:
     date:2023-03-24
     changes:
+      - 修复bug
+        1、encodeURIComponent()编码导致的解析错误
+      - 优化代码
+        1、地址不存在兼容处理
       - 新增一些功能
         1、命令行帮助信息打印
         2、查看版本号
@@ -29,51 +23,40 @@ v0.3.0:
           * 可以指定配置文件位置或使用默认位置
           * 可以配置端口
           * 添加proxy转发功能(解决浏览器跨域请求限制)
-v0.3.1:
-    date:2023-05-07
-    changes:
-      - 新增一些功能
-        1、内置模块支持导出
-v0.4.0:
-    date:2023-07-01
-    changes:
-      - 修复bug
-        1、提示help错误问题
-v0.4.2:
-    date:2023-07-10
-    changes:
-      - 新增一些功能
-        1、copySync 复制文件或文件夹
-        2、moveSync 移动文件或文件夹
-v0.4.3:
-    date:2023-07-12
-    changes:
-      - 优化代码
-        1、添加d.ts文件以支持更多开发环境
-      - 新增一些功能
-        1、linelog 单行打印
-        2、process 进度打印
-        3、options 命令行参数解析
-v0.4.4:
-    date:2023-07-22
-    changes:
-      - 新增一些功能
-        1、get GET请求
-v0.4.6:
-    date:2023-07-28
-    changes:
-      - 新增一些功能
-        1、network 获取本机网络信息
 v0.5.0:
     date:2023-08-19
     changes:
+      - 修复bug
+        1、提示help错误问题
       - 新增一些功能
-        1、get 命令行GET请求
-        2、post 命令行和模块POST请求
-v0.5.1:
-    date:2023-10-22
+        1、内置模块支持导出 
+        2、请求
+          * get GET请求
+          * post 命令行和模块POST请求
+        3、network 获取本机网络信息
+        4、打印
+          * linelog 单行打印
+          * process 进度打印
+        5、options 命令行参数解析
+        6、文件操作
+          * copySync 复制文件或文件夹
+          * moveSync 移动文件或文件夹
+v0.6.0:
+    date:2024-02-18
     changes:
       - 优化代码
-        1、对 network 返回内容进行有效判断和去重处理
+        1、针对移动、复制操作，兼容目标文件夹多层不存在情况
+        2、对 network 返回内容进行有效判断和去重处理
       - 新增一些功能
         1、mimeTypes 文件类型
+        2、server 服务器
+          * 作为API对外暴露
+          * 响应添加跨域处理
+          * suffixs 缺省后缀
+          * handler 自定义拦截
+        3、命令行
+          * --cat 查看文件
+          * --copyfiles 复制文件（一级展开）
+        4、文件操作
+          * listFileSync 遍历文件
+          * fullPathSync 全路径

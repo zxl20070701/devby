@@ -8,9 +8,10 @@ const server = require('../src/server');
 const { options, help } = require('./options');
 const path = require('path');
 const { log, error } = require('../src/log');
-const { deleteSync, copySync, moveSync } = require("../src/file");
+const { deleteSync, copySync, moveSync, listFileSync, fullPathSync } = require("../src/file");
 const network = require("../src/network");
 const { get, post } = require("../src/remote");
+const fs = require("fs");
 
 const jsonfile = require("../package.json");
 
@@ -69,27 +70,7 @@ const parsed = require("../src/options")(shortHands, process.argv);
 
         // 如果配置了服务器
         if ("devServer" in configFile) {
-
-            let proxy = [];
-            if (configFile.devServer.proxy) {
-                for (let item of configFile.devServer.proxy) {
-                    let target = /(https*):\/\/([^/:]+):*(\d+)*(.*)/.exec(item.target) || [];
-                    proxy.push({
-                        test: item.test,
-                        target: {
-                            protocol: target[1], // 使用的协议
-                            hostname: target[2], // 请求发送至的服务器的域名或 IP 地址
-                            port: target[3] || 80, // 端口号
-                            path: target[4] || "", // 路径前缀
-                        }
-                    });
-                }
-            }
-
-            server({
-                port: configFile.devServer.port,
-                proxy
-            });
+            server(configFile.devServer);
         }
     }
 
@@ -97,34 +78,59 @@ const parsed = require("../src/options")(shortHands, process.argv);
     else if (Array.isArray(parsed.delete)) {
 
         // 获取绝对路径
-        let targetPath = path.join(process.cwd(), parsed.delete[0]);
+        let targetPath = fullPathSync(parsed.delete[0]);
 
         deleteSync(targetPath);
-        log(`> delete ${targetPath}`);
+        log(`> delete ${targetPath.replace(process.cwd(), '.')}`);
     }
 
     // 复制
     else if (Array.isArray(parsed.copy)) {
 
         // 获取绝对路径
-        let sourcePath = path.join(process.cwd(), parsed.copy[0]);
-        let targetPath = path.join(process.cwd(), parsed.copy[1]);
+        let sourcePath = fullPathSync(parsed.copy[0]);
+        let targetPath = fullPathSync(parsed.copy[1]);
 
         // 如果存在
         copySync(sourcePath, targetPath);
-        log(`> copy ${sourcePath} ➔ ${targetPath}`);
+        log(`> copy ${sourcePath.replace(process.cwd(), '.')} ➔ ${targetPath.replace(process.cwd(), '.')}`);
+    }
+
+    // 复制文件（一级展开）
+    else if (Array.isArray(parsed.copyfiles)) {
+
+        // 如果目标文件夹不存在，创建
+        if (!fs.existsSync(parsed.copyfiles[1])) {
+            fs.mkdirSync(parsed.copyfiles[1], { recursive: true });
+        }
+
+        listFileSync(parsed.copyfiles[0], fileInfo => {
+
+            // 获取路径
+            let sourcePath = fullPathSync(fileInfo.path);
+            let targetPath = fullPathSync(path.join(parsed.copyfiles[1], fileInfo.name));
+
+            let index = 1;
+            while (fs.existsSync(targetPath)) {
+                targetPath = fullPathSync(path.join(parsed.copyfiles[1], "【" + index + "】" + fileInfo.name));
+                index += 1;
+            }
+
+            log(`> copy ${sourcePath.replace(process.cwd(), '.')} ➔ ${targetPath.replace(process.cwd(), '.')}`);
+            copySync(sourcePath, targetPath);
+        });
     }
 
     // 移动
     else if (Array.isArray(parsed.move)) {
 
         // 获取绝对路径
-        let sourcePath = path.join(process.cwd(), parsed.move[0]);
-        let targetPath = path.join(process.cwd(), parsed.move[1]);
+        let sourcePath = fullPathSync(parsed.move[0]);
+        let targetPath = fullPathSync(parsed.move[1]);
 
         // 如果存在
         moveSync(sourcePath, targetPath);
-        log(`> move ${sourcePath} ➔ ${targetPath}`);
+        log(`> move ${sourcePath.replace(process.cwd(), '.')} ➔ ${targetPath.replace(process.cwd(), '.')}`);
     }
 
     // 网络信息
@@ -148,6 +154,19 @@ const parsed = require("../src/options")(shortHands, process.argv);
         }).catch(e => {
             error(e);
         });
+    }
+
+    // 查看文件
+    else if (Array.isArray(parsed.cat)) {
+        try {
+            let filepath = fullPathSync(parsed.cat[0])
+
+            log(fs.readFileSync(filepath, {
+                encoding: "utf8"
+            }));
+        } catch (e) {
+            error(e);
+        }
     }
 
     // 否则就是启动服务器

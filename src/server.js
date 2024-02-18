@@ -10,8 +10,25 @@ const jsonfile = JSON.parse(fs.readFileSync(path.join(__dirname, '../package.jso
 
 module.exports = function (config = {}) {
 
-    port = config.port || 20000; // 端口号
-    proxy = config.proxy || [];
+    let port = config.port || 20000; // 端口号
+    let handler = typeof config.handler == 'function' ? config.handler : function () { return false; };
+    let suffixs = Array.isArray(config.suffix) ? config.suffix : [".html", ".htm", ".js", ".json", ".css"];
+
+    let proxy = [];
+    if (config.proxy) {
+        for (let item of config.proxy) {
+            let target = /(https*):\/\/([^/:]+):*(\d+)*(.*)/.exec(item.target) || [];
+            proxy.push({
+                test: item.test,
+                target: {
+                    protocol: target[1], // 使用的协议
+                    hostname: target[2], // 请求发送至的服务器的域名或 IP 地址
+                    port: target[3] || 80, // 端口号
+                    path: target[4] || "", // 路径前缀
+                }
+            });
+        }
+    }
 
     let basePath = process.cwd(); // 服务器根路径
 
@@ -28,6 +45,12 @@ module.exports = function (config = {}) {
                 let url = decodeURIComponent(request.url);
 
                 log("[" + index++ + "]" + url);
+
+                // 自定义拦截
+                if (handler.call({
+                    data: requestData,
+                    base: basePath
+                }, request, response)) return;
 
                 // proxy拦截
                 for (let item of proxy) {
@@ -53,6 +76,7 @@ module.exports = function (config = {}) {
                             res.on('end', () => {
                                 let responseHeaders = res.headers;
                                 responseHeaders['proxy-server'] = "Powered by devby@" + jsonfile.version;
+                                responseHeaders['Access-Control-Allow-Origin'] = '*';
                                 response.writeHead(res.statusCode, responseHeaders);
                                 response.write(responseData);
                                 response.end();
@@ -63,6 +87,7 @@ module.exports = function (config = {}) {
                             error(`      转发的时候遇到问题: ${e.message}`);
                             response.writeHead('500', {
                                 'Content-type': "text/plain;charset=utf-8",
+                                'Access-Control-Allow-Origin': '*',
                                 "proxy-server": "Powered by devby@" + jsonfile.version
                             });
                             response.write(e + "");
@@ -83,18 +108,34 @@ module.exports = function (config = {}) {
 
                 let dotName = /\./.test(filePath) ? filePath.match(/\.([^.]+)$/)[1] : "";
 
-                // 文件类型
-                type = mineTypes[dotName];
-
-                if (fs.existsSync(filePath) && !fs.lstatSync(filePath).isDirectory()) {
+                let is404 = true;
+                let doResponse = function (type, filePath) {
                     response.writeHead(200, {
-                        'Content-type': (type || "text/html") + ";charset=utf-8",
+                        'Content-type': (type || "text/plain") + ";charset=utf-8",
+                        'Access-Control-Allow-Origin': '*',
                         'Server': "Powered by devby@" + jsonfile.version
                     });
                     response.write(fs.readFileSync(filePath));
+                    is404 = false;
+                };
+
+                // 文件类型
+                type = mineTypes[dotName];
+                if (fs.existsSync(filePath) && !fs.lstatSync(filePath).isDirectory()) {
+                    doResponse(type, filePath);
                 } else {
+                    for (let suffix of suffixs) {
+                        if (fs.existsSync(filePath + suffix) && !fs.lstatSync(filePath + suffix).isDirectory()) {
+                            type = mineTypes[suffix.replace(/^\./, "")];
+                            doResponse(type, filePath + suffix);
+                        }
+                    }
+                }
+
+                if (is404) {
                     response.writeHead(404, {
                         'Content-type': "text/html;charset=utf-8",
+                        'Access-Control-Allow-Origin': '*',
                         'Server': "Powered by devby@" + jsonfile.version
                     });
                     response.write(responseFileList(filePath));
@@ -107,6 +148,7 @@ module.exports = function (config = {}) {
 
             response.writeHead(500, {
                 'Content-type': "text/plain;charset=utf-8",
+                'Access-Control-Allow-Origin': '*',
                 'Server': "Powered by devby@" + jsonfile.version
             });
             response.write(e + "");

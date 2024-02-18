@@ -4,6 +4,9 @@ module.exports = {
         proxy: [{
             test: /^\/example/,
             target: "http://127.0.0.1:8080"
-        }]
+        }],
+        handler: function (request, response) {
+            // console.log(this, request, response);
+        }
     }
 };
