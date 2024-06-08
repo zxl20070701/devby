@@ -1,12 +1,12 @@
 const http = require('http');
 const fs = require('fs');
 
-const mineTypes = require('./mime.types.js');
-const { log, warn, error } = require('./log');
-const responseFileList = require('./responseFileList');
+const mineTypes = require('../../data/mime.types.js');
+const { log, warn, error } = require('./log.js');
+const responseFileList = require('./responseFileList.js');
 const path = require('path');
 
-const jsonfile = JSON.parse(fs.readFileSync(path.join(__dirname, '../package.json')));
+const jsonfile = JSON.parse(fs.readFileSync(path.join(__dirname, '../../package.json')));
 
 module.exports = function (config = {}) {
 
@@ -30,7 +30,7 @@ module.exports = function (config = {}) {
         }
     }
 
-    let basePath = process.cwd(); // 服务器根路径
+    let basePath = path.join(process.cwd(), config.basePath || "./"); // 服务器根路径
 
     let index = 0;
     let Server = http.createServer(function (request, response) {

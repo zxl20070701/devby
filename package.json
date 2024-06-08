@@ -1,20 +1,19 @@
 {
   "name": "devby",
-  "version": "0.6.0",
-  "description": "前端开发快速工具，包含快速搭建开发调试服务器和一些常用的nodejs模块",
+  "version": "0.7.0",
+  "description": "开发辅助库，提供常用的命令和实用模块并帮助你快速开发NodeJS脚手架cli产品",
+  "main": "./src/index.js",
+  "typings": "./types/index.d.ts",
   "sideEffects": false,
-  "main": "index.js",
   "scripts": {
-    "bin": "node ./bin/run",
-    "config": "node ./bin/run -c ./test/devby.config.js",
-    "debug": "echo 'chrome://inspect/#devices' && node --inspect-brk ./bin/run -c ./test/devby.config.js"
+    "testRun": "node ./bin/run --run \"devby -s\" \"devby -s 9090\""
   },
   "bin": {
     "devby": "bin/run"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/fragement-contrib/devby.git"
+    "url": "git+https://github.com/zxl20070701/devby.git"
   },
   "keywords": [
     "dev",
@@ -26,10 +25,10 @@
   },
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/fragement-contrib/devby/issues"
+    "url": "https://github.com/zxl20070701/devby/issues"
   },
-  "homepage": "https://github.com/fragement-contrib/devby",
+  "homepage": "https://github.com/zxl20070701/devby",
   "devDependencies": {
-    "vislite": "^0.4.1"
+    "vislite": "^1.0.0-next.1"
   }
 }

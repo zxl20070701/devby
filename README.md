@@ -1,5 +1,5 @@
-# [devby](https://github.com/fragement-contrib/devby)
-前端开发快速工具，包含快速搭建开发调试服务器和一些常用的nodejs模块
+# [devby](https://github.com/zxl20070701/devby)
+开发辅助库，提供常用的命令和实用模块并帮助你快速开发NodeJS脚手架cli产品
 
 <p>
     <a href="https://zxl20070701.github.io/toolbox/#/npm-download?packages=devby&interval=7">
@@ -8,14 +8,12 @@
     <a href="https://www.npmjs.com/package/devby">
         <img src="https://img.shields.io/npm/v/devby.svg" alt="npm">
     </a>
-    <a href="https://github.com/fragement-contrib/devby" target='_blank'>
-        <img alt="GitHub repo stars" src="https://img.shields.io/github/stars/fragement-contrib/devby?style=social">
+    <a href="https://github.com/zxl20070701/devby" target='_blank'>
+        <img alt="GitHub repo stars" src="https://img.shields.io/github/stars/zxl20070701/devby?style=social">
     </a>
 </p>
 
-## 简介
-
-本项目建立的初衷是为了方便个人日常工作中可以快速搭建或组装出必要的开发调试环境而维护的。
+<img src="https://nodei.co/npm/devby.png?downloads=true&amp;downloadRank=true&amp;stars=true" alt="NPM">
 
 ### 使用方式
 
@@ -43,7 +41,7 @@ devby -h
 Usage: devby <command>
 
     where <command> is one of:
-        --help, -h, --server, -s, --version, -v, --config, -c, --delete, --copy, --copyfiles, --move, --network, --get, --post, --cat
+        --help, -h, --server, -s, --version, -v, --config, -c, --delete, --copy, --copyfiles, --move, --network, --get, --post, --cat, --run
     
     devby --help|-h <term>       search for help on <term>
     devby --help|-h              involved overview
@@ -94,6 +92,12 @@ module.exports = {
 - [网络请求（ajax）](./docs/ajax.md)
 - [网络信息等](./docs/network.md)
 - [资源数据](./docs/data.md)
+- [图片相关操作](./docs/image.md)
+- [文件解析Loader](./docs/loader.md)
+
+此外，针对更具体的业务场景，我们也提供了更高效的产品：
+
+> 暂无，开发中！
 
 ## 版权
 

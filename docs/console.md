@@ -3,7 +3,7 @@
 ## 普通打印
 
 ```js
-const { log, warn, error, linelog } = require('devby');
+const { log, warn, error } = require('devby');
 ```
 
 ## 单行打印
@@ -18,10 +18,10 @@ linelog(txt);
 
 ## 进度打印
 
-> 0.5.0 新增
+> 0.6.1 新增
 
 ```js
-const { process } = require("devby");
+const { deeplog } = require("devby");
 
-process(percentum, txt);
+deeplog(percentum, txt);
 ```

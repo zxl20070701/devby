@@ -1,4 +1,4 @@
-const nodejs = require('../index');
+const devby = require('../src/index');
 
 let index = 0;
 let interval = setInterval(function () {
@@ -14,12 +14,12 @@ let interval = setInterval(function () {
   if (index < 20) txt += '\n[4] - ' + Math.random();
   if (index > 40) txt += '\n[5] - ' + Math.random();
 
-  nodejs.linelog("\x1B[33m" + txt + "\x1B[39m");
+  devby.linelog("\x1B[33m" + txt + "\x1B[39m");
 
   if (index === 50) {
     clearInterval(interval);
-    nodejs.linelog('同行打印结束\n');
-    nodejs.log('exit');
+    devby.linelog('同行打印结束\n');
+    devby.log('exit');
   }
 
 }, 300);

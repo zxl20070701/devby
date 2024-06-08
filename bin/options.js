@@ -15,7 +15,7 @@ module.exports = {
     server: {
       short: 's',
       info: '[2]Render source server.',
-      demo: 'devby --server|-s [port|20000]'
+      demo: 'devby --server|-s [port|20000] [basePath|./]'
     },
     config: {
       short: 'c',
@@ -30,9 +30,9 @@ module.exports = {
       info: '[5]Copy file or folder.',
       demo: 'devby --copy sourcePath targetPath'
     },
-    copyfiles:{
-      info:'[6]Copy all files in the folder to the specified location.',
-      demo:'devby --copyfiles sourcePath targetPath'
+    copyfiles: {
+      info: '[6]Copy all files in the folder to the specified location.',
+      demo: 'devby --copyfiles sourcePath targetPath'
     },
     move: {
       info: '[7]Move file or folder.',
@@ -53,6 +53,10 @@ module.exports = {
     cat: {
       info: '[11]Show file.',
       demo: 'devby --cat path'
+    },
+    run: {
+      info: '[12]Run multiple commands.',
+      demo: 'devby --run \"commands1\" \"commands2\" \"commands3\"'
     }
   },
 

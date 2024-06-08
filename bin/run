@@ -4,14 +4,15 @@
 
 process.title = 'devby';
 
-const server = require('../src/server');
+const server = require('../src/core/server');
 const { options, help } = require('./options');
 const path = require('path');
-const { log, error } = require('../src/log');
-const { deleteSync, copySync, moveSync, listFileSync, fullPathSync } = require("../src/file");
-const network = require("../src/network");
-const { get, post } = require("../src/remote");
+const { log, error } = require('../src/core/log');
+const { deleteSync, copySync, moveSync, listFileSync, fullPathSync } = require("../src/core/file");
+const network = require("../src/core/network");
+const { get, post } = require("../src/core/remote");
 const fs = require("fs");
+const { exec } = require('child_process');
 
 const jsonfile = require("../package.json");
 
@@ -22,7 +23,7 @@ for (let key in options) {
 }
 
 // 命令行传递的参数
-const parsed = require("../src/options")(shortHands, process.argv);
+const parsed = require("../src/core/options")(shortHands, process.argv);
 
 (() => {
     // 打印版本
@@ -169,12 +170,49 @@ const parsed = require("../src/options")(shortHands, process.argv);
         }
     }
 
+    // 运行多命令
+    else if (Array.isArray(parsed.run)) {
+        for (let index = 0; index < parsed.run.length; index++) {
+            const child = exec(parsed.run[index]);
+
+            // 监听子线程的stdout
+            child.stdout.on('data', (data) => {
+                console.log(`[${index + 1}] log:${data}`);
+            });
+
+            // 监听子线程的stderr
+            child.stderr.on('data', (data) => {
+                console.error(`[${index + 1}] error:${data}`);
+            });
+
+            // 子线程结束处理
+            child.on('close', (code) => {
+                console.log(`[${index + 1}] 子线程结束，退出码 ${code}`);
+            });
+
+            // 子线程出错处理
+            child.on('error', (error) => {
+                console.error(`[${index + 1}] 子线程错误: ${error.message}`);
+            });
+        }
+    }
+
     // 否则就是启动服务器
     else {
 
-        let port = (parsed.server && parsed.server[0]) || parsed.__terminal__[0];
+        let port, basePath;
+
+        if (Array.isArray(parsed.server)) {
+            port = parsed.server[0];
+            basePath = parsed.server[1];
+        } else {
+            port = parsed.__terminal__[0];
+            basePath = parsed.__terminal__[1];
+        }
+
         server({
-            port
+            port,
+            basePath
         });
     }
 })();

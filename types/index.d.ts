@@ -49,6 +49,12 @@ export default class DevBy {
     static fullPathSync(pathString: string, contextPath?: string): string
 
     /**
+     * 图片变成base64字符串
+     * @param filepath 图片地址
+     */
+    static toBase64(filepath: string): string
+
+    /**
      * 日志打印
      * @param txt 
      */
@@ -74,6 +80,13 @@ export default class DevBy {
 
     /**
      * 进度打印
+     * @param percentum 
+     * @param txt 
+     */
+    static deeplog(percentum: number, txt?: string): void
+
+    /**
+     * 进度打印（已废弃，请用deeplog代替）
      * @param percentum 
      * @param txt 
      */
@@ -132,4 +145,36 @@ export default class DevBy {
          */
         suffixs?: Array<string>
     }): void
+
+    /**
+     * scss文件转css（只支持部分scss语法）
+     * @param source 
+     */
+    static simpleScss(source: string): string
+
+    /**
+     * xhtml文件解析成json对象
+     * @param source 
+     */
+    static xhtml(source: string): Array<{
+        type: string,
+        name: string,
+        attrs: {
+            [key: string]: string
+        },
+        __deep__: number,
+        __tagType__: string,
+        childNodes: Array<number>,
+        preNode: null | number,
+        nextNode: null | number,
+        parentNode: null | number
+    } | {
+        type: string,
+        content: string,
+        __deep__: number,
+        childNodes: Array<number>,
+        preNode: null | number,
+        nextNode: null | number,
+        parentNode: null | number
+    }>
 }

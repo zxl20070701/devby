@@ -33,7 +33,7 @@ exports.post = function (url, options = {}) {
             port: hostport[1] || 80,
             path: execArray[2] || "/",
             method: "POST",
-            headers: {}
+            headers: options.header || {}
         }, (res) => {
             res.setEncoding('utf8');
 
@@ -49,6 +49,8 @@ exports.post = function (url, options = {}) {
                 }
             });
         });
+
+        req.write(options.params || "{}");
 
         req.on('error', (e) => {
             reject(e);
